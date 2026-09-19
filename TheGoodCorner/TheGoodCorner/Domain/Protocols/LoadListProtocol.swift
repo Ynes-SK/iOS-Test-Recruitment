@@ -8,3 +8,6 @@
 protocol LoadListProtocol {
     func LoadList() async throws -> ListingModel
 }
+protocol GetCategoryProtocol {
+    func getCategory() async throws -> [ItemCategory]
+}

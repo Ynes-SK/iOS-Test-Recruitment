@@ -9,23 +9,39 @@ struct ContentView: View {
                 
                 ForEach(items, id: \.id) { item in
                     VStack{
-                        ImageView.init(url: item.images_url?.thumb)
+                        Text(viewModel.getCategoryNameById(for: item.category_id)).frame(maxWidth: .infinity, alignment: .leading)
+                        ZStack(alignment: .topTrailing) {
+                            ImageView.init(url: item.images_url?.thumb)
+                            if item.is_urgent {
+                                Text("URGENT")
+                                    .font(.headline)
+                                    .bold()
+                                    .foregroundStyle(.white)
+                                    .padding()
+                                    .background(.red)
+                                    .clipShape(Capsule())
+                                    .padding(.top, 5)
+                                    .padding(.trailing, 5)
+                            }
+                        }
+                        
                         Text(item.title)
                             .font(.headline)
                             .multilineTextAlignment(.center)
-                        if item.is_urgent {
-                            Text("URGENT").font(.caption2).bold().foregroundStyle(.red)
-                        }
-                            
+                      
+                        
                         Text("\(item.price, specifier: "%.2f") €")
                             .font(.subheadline)
+                        
                     }
                 }
+                
             }
         }
         .padding()
         .task {
             await viewModel.loadList()
+            await viewModel.getCategory()
         }
     }
 }

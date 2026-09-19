@@ -28,7 +28,7 @@ struct ImageString: Decodable, Hashable{
     let small: String?
     let thumb: String?
 }
-struct Category: Decodable, Hashable{
+struct ItemCategory: Decodable, Hashable{
     let id: Int
     let name: String
 }
